@@ -24,7 +24,7 @@ const result = parseArgs({
   allowPositionals: true,
 });
 
-const plugin = process.cwd().split(path.sep).pop();
+const plugin = process.cwd().split(path.sep).pop(); // get folder name as plugin name
 if (!plugin) {
   throw new Error('plugin name not found');
 }
@@ -114,9 +114,11 @@ const serverOutDir = path.resolve(
 
 const coreEntry = path.resolve(pluginDir, json.affinePlugin.entry.core);
 
+// this json file works as AFFiNE Plugin Entry
 const generatePackageJson: PluginOption = {
   name: 'generate-package.json',
   async generateBundle() {
+    // redundant async ?
     const packageJson = {
       name: json.name,
       version: json.version,
@@ -218,7 +220,7 @@ await build({
         }
         return code;
       },
-    },
+    } as PluginOption,
     generatePackageJson,
   ],
 });
